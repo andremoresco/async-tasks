@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
-import java.util.UUID;
-import java.util.concurrent.CompletableFuture;
 
 @Service
 public class CreateBackupService {
@@ -25,16 +23,11 @@ public class CreateBackupService {
     }
 
     public Backup execute() {
-        UUID backupId = UUID.randomUUID();
-        Backup backup = new Backup(backupId, new Date(), BackupStatus.IN_PROGRESS);
+        Backup backup = new Backup(new Date(), BackupStatus.IN_PROGRESS);
         this.backupRepository.save(backup);
 
-        try {
-            CompletableFuture<String> execute = this.doBackupService.execute(backupId.toString());
-            execute.whenCompleteAsync((s, throwable) -> this.backupRepository.updateStatus(s, throwable == null ? BackupStatus.OK : BackupStatus.FAILED));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        this.doBackupService.execute(backup.getBackupId().toString())
+                .whenComplete((s, throwable) -> this.backupRepository.updateStatus(s, throwable == null ? BackupStatus.OK : BackupStatus.FAILED));
 
         return backup;
     }

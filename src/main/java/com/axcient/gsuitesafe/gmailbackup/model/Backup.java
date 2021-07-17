@@ -12,8 +12,8 @@ public class Backup {
     public Backup() {
     }
 
-    public Backup(UUID backupId, Date date, BackupStatus status) {
-        this.backupId = backupId;
+    public Backup(Date date, BackupStatus status) {
+        this.backupId = UUID.randomUUID();
         this.date = date;
         this.status = status;
     }

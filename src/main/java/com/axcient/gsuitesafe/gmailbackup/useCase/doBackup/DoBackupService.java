@@ -9,8 +9,12 @@ import java.util.concurrent.CompletableFuture;
 public class DoBackupService {
 
     @Async
-    public CompletableFuture<String> execute(String backupId) throws InterruptedException {
-        Thread.sleep(10000L);
+    public CompletableFuture<String> execute(String backupId) {
+        try {
+            Thread.sleep(10000L);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return CompletableFuture.completedFuture(backupId);
     }
 
