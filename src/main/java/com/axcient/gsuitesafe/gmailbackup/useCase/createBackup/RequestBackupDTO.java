@@ -1,4 +1,4 @@
-package com.axcient.gsuitesafe.gmailbackup.useCase;
+package com.axcient.gsuitesafe.gmailbackup.useCase.createBackup;
 
 public class RequestBackupDTO {
 

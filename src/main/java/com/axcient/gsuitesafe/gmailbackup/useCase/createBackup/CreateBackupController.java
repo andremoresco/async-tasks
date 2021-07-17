@@ -1,4 +1,4 @@
-package com.axcient.gsuitesafe.gmailbackup.useCase;
+package com.axcient.gsuitesafe.gmailbackup.useCase.createBackup;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,6 @@ public class CreateBackupController {
 
     @PostMapping("/backups")
     public ResponseEntity<Object> handle() {
-
         return ResponseEntity.ok(new RequestBackupDTO(this.createBackupService.execute().getBackupId().toString()));
     }
 
