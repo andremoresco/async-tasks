@@ -25,7 +25,6 @@ public class ExportBackupService {
     }
 
     public List<EmailData> execute(String backupId) throws Exception {
-
         var backup = this.findBackupByIdService.execute(backupId);
 
         if (backup.getStatus() != BackupStatus.OK) {
@@ -36,15 +35,7 @@ public class ExportBackupService {
     }
 
     public List<EmailData> execute(String backupId, String label) throws Exception {
-
-        var backup = this.findBackupByIdService.execute(backupId);
-
-        if (backup.getStatus() != BackupStatus.OK) {
-            throw new BackupNotReadyToExportException();
-        }
-
-        var emailList = this.emailRepository.list(backupId);
-
+        var emailList = this.execute(backupId);
         return emailList.stream()
                 .filter(emailData -> Objects.nonNull(emailData.getLabels()) && emailData.getLabels().contains(label))
                 .collect(Collectors.toList());
