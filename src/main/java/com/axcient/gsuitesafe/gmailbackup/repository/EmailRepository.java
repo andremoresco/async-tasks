@@ -8,7 +8,7 @@ import java.util.List;
 @Repository
 public interface EmailRepository {
 
-    void save(String backupId, List<EmailData> listEmails);
+    void save(String backupId, List<EmailData> listEmails) throws Exception;
 
     List<EmailData> list(String backupId);
 

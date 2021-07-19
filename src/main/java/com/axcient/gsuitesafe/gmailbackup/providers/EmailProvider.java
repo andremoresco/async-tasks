@@ -8,6 +8,6 @@ import java.util.List;
 @Repository
 public interface EmailProvider {
 
-    List<EmailData> getEmails();
+    List<EmailData> getEmails() throws Exception;
 
 }
