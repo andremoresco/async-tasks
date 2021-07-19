@@ -17,7 +17,7 @@ public class ListBackupsService {
         this.backupRepository = backupRepository;
     }
 
-    public List<Backup> execute() {
-        return this.backupRepository.find();
+    public List<Backup> execute() throws Exception {
+        return this.backupRepository.find() ;
     }
 }

@@ -19,7 +19,7 @@ public class ListBackupsController {
     }
 
     @GetMapping("/backups")
-    public ResponseEntity<Object> handle() {
+    public ResponseEntity<Object> handle() throws Exception {
         List<Backup> backups = this.listBackupsService.execute();
         return ResponseEntity.ok(backups);
     }
