@@ -1,4 +1,4 @@
-package com.axcient.gsuitesafe.gmailbackup.useCase.createBackup;
+package com.axcient.gsuitesafe.gmailbackup.usecase.createbackup;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

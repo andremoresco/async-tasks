@@ -1,4 +1,4 @@
-package com.axcient.gsuitesafe.gmailbackup.useCase.listBackups;
+package com.axcient.gsuitesafe.gmailbackup.usecase.listbackups;
 
 import com.axcient.gsuitesafe.gmailbackup.model.Backup;
 import org.junit.Test;
@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import java.util.Collections;
 
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -52,7 +51,6 @@ public class ListBackupsControllerTest {
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/backups"))
                 .andExpect(status().isInternalServerError())
-                .andDo(print())
                 .andExpect(content().json("{\"message\": \"test\", \"error_code\": \"INTERNAL_SERVER_ERROR\"}"));
 
     }

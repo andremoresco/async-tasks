@@ -1,9 +1,9 @@
-package com.axcient.gsuitesafe.gmailbackup.useCase.createBackup;
+package com.axcient.gsuitesafe.gmailbackup.usecase.createbackup;
 
 import com.axcient.gsuitesafe.gmailbackup.model.Backup;
 import com.axcient.gsuitesafe.gmailbackup.model.BackupStatus;
 import com.axcient.gsuitesafe.gmailbackup.repository.BackupRepository;
-import com.axcient.gsuitesafe.gmailbackup.useCase.doBackup.DoBackupService;
+import com.axcient.gsuitesafe.gmailbackup.usecase.dobackup.DoBackupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

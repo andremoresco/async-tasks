@@ -1,4 +1,4 @@
-package com.axcient.gsuitesafe.gmailbackup.useCase.findBackup;
+package com.axcient.gsuitesafe.gmailbackup.usecase.findbackup;
 
 import com.axcient.gsuitesafe.gmailbackup.exceptions.BackupNotFoundException;
 import com.axcient.gsuitesafe.gmailbackup.model.Backup;

@@ -1,4 +1,4 @@
-package com.axcient.gsuitesafe.gmailbackup.useCase.createBackup;
+package com.axcient.gsuitesafe.gmailbackup.usecase.createbackup;
 
 import com.axcient.gsuitesafe.gmailbackup.model.Backup;
 import org.junit.Test;

@@ -1,10 +1,10 @@
-package com.axcient.gsuitesafe.gmailbackup.useCase.exportBackup;
+package com.axcient.gsuitesafe.gmailbackup.usecase.exportbackup;
 
 import com.axcient.gsuitesafe.gmailbackup.exceptions.BackupNotReadyToExportException;
 import com.axcient.gsuitesafe.gmailbackup.model.BackupStatus;
 import com.axcient.gsuitesafe.gmailbackup.model.EmailData;
 import com.axcient.gsuitesafe.gmailbackup.repository.EmailRepository;
-import com.axcient.gsuitesafe.gmailbackup.useCase.findBackup.FindBackupByIdService;
+import com.axcient.gsuitesafe.gmailbackup.usecase.findbackup.FindBackupByIdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

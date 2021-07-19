@@ -1,4 +1,4 @@
-package com.axcient.gsuitesafe.gmailbackup.useCase.exportBackup;
+package com.axcient.gsuitesafe.gmailbackup.usecase.exportbackup;
 
 import com.axcient.gsuitesafe.gmailbackup.model.EmailData;
 

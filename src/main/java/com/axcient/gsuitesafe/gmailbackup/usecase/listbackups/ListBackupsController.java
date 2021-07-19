@@ -1,4 +1,4 @@
-package com.axcient.gsuitesafe.gmailbackup.useCase.listBackups;
+package com.axcient.gsuitesafe.gmailbackup.usecase.listbackups;
 
 import com.axcient.gsuitesafe.gmailbackup.model.Backup;
 import org.springframework.beans.factory.annotation.Autowired;
