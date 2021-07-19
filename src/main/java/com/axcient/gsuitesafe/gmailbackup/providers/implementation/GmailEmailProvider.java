@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Class created to simulate a connection with Gmail provider
+ * and get the emails to backup.
+ */
+
 @Repository
 public class GmailEmailProvider implements EmailProvider {
 
@@ -20,47 +25,6 @@ public class GmailEmailProvider implements EmailProvider {
         }
         return emails;
     }
-
-//    private List<EmailData> arrayEmails() {
-//
-//
-//        List<EmailData> list = new ArrayList<>();
-//        for (int i = 0; i < 3; i++) {
-//            list.add(newEmail("important,inbox"));
-//        }
-//        return Arrays.asList(
-//                newEmail("important,inbox")
-////                newEmail("important,inbox"),
-////                newEmail("important,inbox"),
-////                newEmail("important,inbox"),
-////                newEmail("important,inbox"),
-////                newEmail("important,inbox"),
-////                newEmail("important,inbox"),
-////                newEmail("important,inbox"),
-////                newEmail("draft"),
-////                newEmail("draft"),
-////                newEmail("draft"),
-////                newEmail("draft"),
-////                newEmail("draft"),
-////                newEmail("draft"),
-////                newEmail("draft"),
-////                newEmail("sent"),
-////                newEmail("sent"),
-////                newEmail("sent"),
-////                newEmail("sent"),
-////                newEmail("sent"),
-////                newEmail("starred"),
-////                newEmail("starred"),
-////                newEmail("starred"),
-////                newEmail("starred"),
-////                newEmail("starred"),
-////                newEmail("starred"),
-////                newEmail("starred"),
-////                newEmail("starred"),
-////                newEmail("starred"),
-////                newEmail("starred")
-//        );
-//    }
 
     private EmailData newEmail(String labels, String subject) {
         return new EmailData("amoresco1@gmail.com", "xxx@gmail.com", new Date(), new Date(), new Date(), labels, subject, "kaksjdkaja");

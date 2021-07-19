@@ -4,9 +4,6 @@ public class RequestBackupDTO {
 
     private String backupId;
 
-    public RequestBackupDTO() {
-    }
-
     public RequestBackupDTO(String backupId) {
         this.backupId = backupId;
     }
@@ -15,7 +12,4 @@ public class RequestBackupDTO {
         return backupId;
     }
 
-    public void setBackupId(String backupId) {
-        this.backupId = backupId;
-    }
 }

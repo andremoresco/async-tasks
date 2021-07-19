@@ -29,9 +29,9 @@ public class CreateBackupService {
         return backup;
     }
 
-    private void doBackup(Backup backup) {
+    private void doBackup(Backup backup) throws Exception {
         this.doBackupService.execute(backup.getBackupId().toString())
-                .whenComplete((s, throwable) -> this.backupRepository.updateStatus(s, throwable == null ? BackupStatus.OK : BackupStatus.FAILED));
+                .whenCompleteAsync((s, throwable) -> this.backupRepository.updateStatus(backup.getBackupId().toString(), throwable == null ? BackupStatus.OK : BackupStatus.FAILED));
     }
 
 }

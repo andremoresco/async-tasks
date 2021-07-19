@@ -23,17 +23,12 @@ public class DoBackupService {
     }
 
     @Async
-    public CompletableFuture<String> execute(String backupId) {
+    public CompletableFuture<String> execute(String backupId) throws Exception {
 
         List<EmailData> emails = this.emailProvider.getEmails();
 
         this.emailRepository.save(backupId, emails);
 
-        try {
-            Thread.sleep(10000L);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return CompletableFuture.completedFuture(backupId);
     }
 
