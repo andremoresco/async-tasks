@@ -7,8 +7,6 @@ import com.axcient.gsuitesafe.gmailbackup.useCase.doBackup.DoBackupService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service
 public class CreateBackupService {
 
@@ -22,14 +20,18 @@ public class CreateBackupService {
         this.doBackupService = doBackupService;
     }
 
-    public Backup execute() {
-        Backup backup = new Backup(new Date(), BackupStatus.IN_PROGRESS);
+    public Backup execute() throws Exception {
+        Backup backup = new Backup();
         this.backupRepository.save(backup);
 
-        this.doBackupService.execute(backup.getBackupId().toString())
-                .whenComplete((s, throwable) -> this.backupRepository.updateStatus(s, throwable == null ? BackupStatus.OK : BackupStatus.FAILED));
+        doBackup(backup);
 
         return backup;
+    }
+
+    private void doBackup(Backup backup) {
+        this.doBackupService.execute(backup.getBackupId().toString())
+                .whenComplete((s, throwable) -> this.backupRepository.updateStatus(s, throwable == null ? BackupStatus.OK : BackupStatus.FAILED));
     }
 
 }

@@ -10,12 +10,9 @@ public class Backup {
     private BackupStatus status;
 
     public Backup() {
-    }
-
-    public Backup(Date date, BackupStatus status) {
         this.backupId = UUID.randomUUID();
-        this.date = date;
-        this.status = status;
+        this.date = new Date();
+        this.status = BackupStatus.IN_PROGRESS;
     }
 
     @Override

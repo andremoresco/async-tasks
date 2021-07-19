@@ -25,4 +25,10 @@ public class ExceptionsHandler {
                 .body(new HttpErrorResponse(e.getCode(), e.getMessage()));
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<HttpErrorResponse> handleDefaultException(Exception e, HttpServletRequest request) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new HttpErrorResponse("INTERNAL_SERVER_ERROR", e.getMessage()));
+    }
 }

@@ -16,7 +16,7 @@ public class CreateBackupController {
     }
 
     @PostMapping("/backups")
-    public ResponseEntity<Object> handle() {
+    public ResponseEntity<Object> handle() throws Exception {
         return ResponseEntity.ok(new RequestBackupDTO(this.createBackupService.execute().getBackupId().toString()));
     }
 
