@@ -1,6 +1,6 @@
-# G Suite Safe - Gmail Backup
+# Async tasks
 
-Project to provide for our clients a Gmail backup service.
+This project simulate a backup running async method in background using CompletableFuture.
 
 
 ## Tech Stack
