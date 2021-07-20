@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class created to simulate a repository
+ */
 @Repository
 public class EmailBackupStorageRepository implements EmailRepository {
 

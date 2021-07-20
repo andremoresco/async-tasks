@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Class created to simulate a repository
+ */
 @Repository
 public class BackupStorageRepository implements BackupRepository {
 
