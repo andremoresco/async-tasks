@@ -13,7 +13,7 @@ Java 11 + Spring-boot 2.3.12.RELEASE
 Go to the project directory
 
 ```bash
-  cd source
+  cd async-tasks
 ```
 
 Install dependencies
