@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.axcient.gsuitesafe</groupId>
-	<artifactId>gmail-backup</artifactId>
+	<artifactId>async-tasks</artifactId>
 	<version>0.1</version>
-	<name>gmail-backup</name>
-	<description>G Suite Safe Gmail Backup</description>
+	<name>async-tasks</name>
+	<description>Async tasks using CompletableFuture</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
