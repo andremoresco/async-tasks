@@ -1,32 +1,92 @@
 package com.andremoresco.asynctask.providers.implementation;
 
-import com.andremoresco.asynctask.model.EmailData;
+import com.andremoresco.asynctask.model.Email;
 import com.andremoresco.asynctask.providers.EmailProvider;
-import org.springframework.stereotype.Repository;
+import com.andremoresco.asynctask.usecase.dobackup.SyncEmailCallback;
+import com.google.api.client.googleapis.batch.BatchRequest;
+import com.google.api.client.googleapis.batch.json.JsonBatchCallback;
+import com.google.api.client.googleapis.json.GoogleJsonError;
+import com.google.api.client.http.HttpHeaders;
+import com.google.api.services.gmail.Gmail;
+import com.google.api.services.gmail.model.ListMessagesResponse;
+import com.google.api.services.gmail.model.Message;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
-/**
- * Class created to simulate a connection with Gmail provider
- * and get the emails to backup.
- */
-
-@Repository
+@Service
 public class GmailEmailProvider implements EmailProvider {
 
-    @Override
-    public List<EmailData> getEmails() {
-        List<EmailData> emails = new ArrayList<>();
+    List<Email> LIST_EMAILS = new ArrayList<>();
 
-        for (int i = 0; i < 100; i++) {
-            emails.add(newEmail("important,inbox", "testEmail" + i));
-        }
-        return emails;
+    @Value("${gmail.messages.format:raw}")
+    private String format;
+
+    private final String AUTHENTICATED_USER = "me";
+
+    private final GmailOauthAuthentication gmailOauthAuthentication;
+
+    @Autowired
+    public GmailEmailProvider(GmailOauthAuthentication gmailOauthAuthentication) {
+        this.gmailOauthAuthentication = gmailOauthAuthentication;
     }
 
-    private EmailData newEmail(String labels, String subject) {
-        return new EmailData("amoresco1@gmail.com", "xxx@gmail.com", new Date(), new Date(), new Date(), labels, subject, "kaksjdkaja");
+    @Override
+    public void getEmails(SyncEmailCallback syncEmailCallback) throws Exception {
+
+        Gmail service = this.gmailOauthAuthentication.execute();
+
+        this.syncEmails(service, null);
+
+        syncEmailCallback.success(LIST_EMAILS);
+    }
+
+    private void syncEmails(Gmail service, String pageToken) throws IOException {
+
+        ListMessagesResponse messageResponse = this.listMessages(service, pageToken);
+
+        BatchRequest batchRequest = service.batch();
+
+        this.executeBatchRequestToGetEmails(service, batchRequest, messageResponse.getMessages());
+
+        if (Objects.nonNull(messageResponse.getNextPageToken())) {
+            this.syncEmails(service, messageResponse.getNextPageToken());
+        }
+    }
+
+    private ListMessagesResponse listMessages(Gmail service, String pageToken) throws IOException {
+        return service.users().messages().list(AUTHENTICATED_USER).setLabelIds(Collections.singletonList("DRAFT")).setPageToken(pageToken).execute();
+    }
+
+    private void executeBatchRequestToGetEmails(Gmail service, BatchRequest batchRequest, List<Message> messages) throws IOException {
+        for (Message message : messages) {
+            service.users().messages().get(AUTHENTICATED_USER, message.getId()).setFormat(this.format).queue(batchRequest, getJsonBatchCallback());
+        }
+
+        batchRequest.execute();
+    }
+
+    private JsonBatchCallback<Message> getJsonBatchCallback() {
+        return new JsonBatchCallback<>() {
+
+            @Override
+            public void onSuccess(Message message, HttpHeaders httpHeaders) {
+                ModelMapper modelMapper = new ModelMapper();
+                Email email = modelMapper.map(message, Email.class);
+                LIST_EMAILS.add(email);
+            }
+
+            @Override
+            public void onFailure(GoogleJsonError googleJsonError, HttpHeaders httpHeaders) {
+                System.out.println(googleJsonError.getMessage());
+            }
+        };
     }
 }

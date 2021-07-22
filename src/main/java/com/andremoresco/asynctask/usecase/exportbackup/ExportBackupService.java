@@ -1,10 +1,10 @@
 package com.andremoresco.asynctask.usecase.exportbackup;
 
-import com.andremoresco.asynctask.model.BackupStatus;
-import com.andremoresco.asynctask.model.EmailData;
-import com.andremoresco.asynctask.usecase.findbackup.FindBackupByIdService;
 import com.andremoresco.asynctask.exceptions.BackupNotReadyToExportException;
+import com.andremoresco.asynctask.model.BackupStatus;
+import com.andremoresco.asynctask.model.Email;
 import com.andremoresco.asynctask.repository.EmailRepository;
+import com.andremoresco.asynctask.usecase.findbackup.FindBackupByIdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class ExportBackupService {
         this.emailRepository = emailRepository;
     }
 
-    public List<EmailData> execute(String backupId) throws Exception {
+    public List<Email> execute(String backupId) throws Exception {
         var backup = this.findBackupByIdService.execute(backupId);
 
         if (backup.getStatus() != BackupStatus.OK) {
@@ -34,10 +34,10 @@ public class ExportBackupService {
         return this.emailRepository.list(backupId);
     }
 
-    public List<EmailData> execute(String backupId, String label) throws Exception {
+    public List<Email> execute(String backupId, String label) throws Exception {
         var emailList = this.execute(backupId);
         return emailList.stream()
-                .filter(emailData -> Objects.nonNull(emailData.getLabels()) && emailData.getLabels().contains(label))
+                .filter(emailData -> Objects.nonNull(emailData.getLabelIds()) && emailData.getLabelIds().contains(label))
                 .collect(Collectors.toList());
     }
 

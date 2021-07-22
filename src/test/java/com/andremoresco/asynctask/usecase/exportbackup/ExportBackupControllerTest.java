@@ -1,6 +1,6 @@
 package com.andremoresco.asynctask.usecase.exportbackup;
 
-import com.andremoresco.asynctask.model.EmailData;
+import com.andremoresco.asynctask.model.Email;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +31,7 @@ public class ExportBackupControllerTest {
     public void handleWithBackupIdPath() throws Exception {
 
         when(this.exportBackupService.execute(anyString()))
-                .thenReturn(Collections.singletonList(new EmailData()));
+                .thenReturn(Collections.singletonList(new Email()));
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/exports/id"))
                 .andExpect(status().isOk())
@@ -44,7 +44,7 @@ public class ExportBackupControllerTest {
     public void handleWithBackupIdAndLabelPath() throws Exception {
 
         when(this.exportBackupService.execute(anyString(), anyString()))
-                .thenReturn(Collections.singletonList(new EmailData()));
+                .thenReturn(Collections.singletonList(new Email()));
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/exports/id/label"))
                 .andExpect(status().isOk())

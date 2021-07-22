@@ -1,6 +1,6 @@
 package com.andremoresco.asynctask.usecase.exportbackup;
 
-import com.andremoresco.asynctask.model.EmailData;
+import com.andremoresco.asynctask.model.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,7 +38,7 @@ public class ExportBackupController {
         return processResponse(backupId, list);
     }
 
-    private ResponseEntity<StreamingResponseBody> processResponse(String backupId, List<EmailData> list) {
+    private ResponseEntity<StreamingResponseBody> processResponse(String backupId, List<Email> list) {
         if (list == null || list.isEmpty()) {
             return ResponseEntity.noContent().build();
         }
@@ -50,7 +50,7 @@ public class ExportBackupController {
 
                     for (var emailData : list) {
                         var emailBytes = emailData.toString().getBytes();
-                        var entry = new ZipEntry(emailData.getSubject() + ".txt");
+                        var entry = new ZipEntry(emailData.getId() + ".txt");
                         entry.setSize(emailBytes.length);
                         zipOutputStream.putNextEntry(entry);
                         zipOutputStream.write(emailBytes);

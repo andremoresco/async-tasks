@@ -1,0 +1,18 @@
+
+spring:
+  application:
+    name: async-tasks
+
+gmail:
+  authentication:
+    token_directory: tokens
+    access_type: offline
+    user:
+      id: xxxx
+    client:
+      id: xxxxx
+      secret: xxxx
+    server:
+      port: 8888
+  messages:
+    format: full

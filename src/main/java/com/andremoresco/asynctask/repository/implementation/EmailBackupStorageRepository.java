@@ -1,6 +1,6 @@
 package com.andremoresco.asynctask.repository.implementation;
 
-import com.andremoresco.asynctask.model.EmailData;
+import com.andremoresco.asynctask.model.Email;
 import com.andremoresco.asynctask.repository.EmailRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,15 +14,15 @@ import java.util.Map;
 @Repository
 public class EmailBackupStorageRepository implements EmailRepository {
 
-    private Map<String, List<EmailData>> BACKUPS = new HashMap<>();
+    private Map<String, List<Email>> BACKUPS = new HashMap<>();
 
     @Override
-    public void save(String backupId, List<EmailData> listEmails) {
+    public void save(String backupId, List<Email> listEmails) {
         this.BACKUPS.put(backupId, listEmails);
     }
 
     @Override
-    public List<EmailData> list(String backupId) {
+    public List<Email> list(String backupId) {
         return this.BACKUPS.get(backupId);
     }
 }

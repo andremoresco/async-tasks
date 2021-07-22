@@ -4,7 +4,7 @@ import com.andremoresco.asynctask.exceptions.BackupNotFoundException;
 import com.andremoresco.asynctask.exceptions.BackupNotReadyToExportException;
 import com.andremoresco.asynctask.model.Backup;
 import com.andremoresco.asynctask.model.BackupStatus;
-import com.andremoresco.asynctask.model.EmailData;
+import com.andremoresco.asynctask.model.Email;
 import com.andremoresco.asynctask.repository.EmailRepository;
 import com.andremoresco.asynctask.usecase.findbackup.FindBackupByIdService;
 import org.junit.Assert;
@@ -16,7 +16,6 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -87,14 +86,14 @@ public class ExportBackupServiceTest {
 
         when(this.emailRepository.list(anyString()))
                 .thenReturn(Arrays.asList(
-                        new EmailData("from", "to", new Date(), new Date(), new Date(), "important", "Subject", "aa"),
-                        new EmailData("from", "to", new Date(), new Date(), new Date(), "draft", "Subject", "aa")
+                        Email.builder().id("aaa").labelIds(Collections.singletonList("draft")).build(),
+                        Email.builder().id("bbb").labelIds(Collections.singletonList("inbox")).build()
                 ));
 
-        List<EmailData> draft = this.exportBackupService.execute(anyString(), "draft");
+        List<Email> draft = this.exportBackupService.execute(anyString(), "draft");
 
         Assert.assertEquals(1, draft.size());
-        Assert.assertEquals("draft", draft.get(0).getLabels());
+        Assert.assertEquals(Collections.singletonList("draft"), draft.get(0).getLabelIds());
     }
 
 }
