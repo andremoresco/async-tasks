@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -62,7 +61,7 @@ public class GmailEmailProvider implements EmailProvider {
     }
 
     private ListMessagesResponse listMessages(Gmail service, String pageToken) throws IOException {
-        return service.users().messages().list(AUTHENTICATED_USER).setLabelIds(Collections.singletonList("DRAFT")).setPageToken(pageToken).execute();
+        return service.users().messages().list(AUTHENTICATED_USER).setPageToken(pageToken).execute();
     }
 
     private void executeBatchRequestToGetEmails(Gmail service, BatchRequest batchRequest, List<Message> messages) throws IOException {
