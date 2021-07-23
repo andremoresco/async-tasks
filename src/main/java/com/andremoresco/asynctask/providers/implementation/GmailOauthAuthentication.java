@@ -29,7 +29,7 @@ public class GmailOauthAuthentication {
     @Value("${spring.application.name}")
     private String applicationName;
 
-    @Value("${gmail.authentication.token_directory}")
+    @Value("${gmail.authentication.token_directory:token}")
     private String tokenDirectory;
 
     @Value("${gmail.authentication.user.id}")
@@ -41,10 +41,10 @@ public class GmailOauthAuthentication {
     @Value("${gmail.authentication.client.secret}")
     private String clientSecret;
 
-    @Value("${gmail.authentication.access_type}")
+    @Value("${gmail.authentication.access_type:offline}")
     private String accessType;
 
-    @Value("${gmail.authentication.server.port}")
+    @Value("${gmail.authentication.server.port:8888}")
     private Integer serverPort;
 
     public Gmail execute() throws GeneralSecurityException, IOException {
