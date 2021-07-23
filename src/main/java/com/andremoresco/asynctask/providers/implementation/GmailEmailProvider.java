@@ -62,7 +62,7 @@ public class GmailEmailProvider implements EmailProvider {
     }
 
     private ListMessagesResponse listMessages(Gmail service, String pageToken) throws IOException {
-        return service.users().messages().list(AUTHENTICATED_USER).setPageToken(pageToken).setLabelIds(Collections.singletonList("DRAFT")).execute();
+        return service.users().messages().list(AUTHENTICATED_USER).setPageToken(pageToken).execute();
     }
 
     private void executeBatchRequestToGetEmails(Gmail service, BatchRequest batchRequest, List<Message> messages) throws IOException {
