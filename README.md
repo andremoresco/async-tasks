@@ -2,6 +2,9 @@
 
 This project run a Gmail backup connecting on Gmail API and getting the emails.
 
+## Roadmap
+
+- Connect on Gmail API by service account.
 
 ## Tech Stack
 
