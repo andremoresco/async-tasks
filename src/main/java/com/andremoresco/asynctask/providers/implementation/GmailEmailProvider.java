@@ -23,7 +23,7 @@ import java.util.Objects;
 @Service
 public class GmailEmailProvider implements EmailProvider {
 
-    List<Email> LIST_EMAILS = new ArrayList<>();
+    List<Email> LIST_EMAILS;
 
     @Value("${gmail.messages.format:raw}")
     private String format;
@@ -41,6 +41,7 @@ public class GmailEmailProvider implements EmailProvider {
     public List<Email> getEmails() throws Exception {
 
         Gmail service = this.gmailOauthAuthentication.execute();
+        this.LIST_EMAILS = new ArrayList<>();
 
         this.syncEmails(service, null);
 
