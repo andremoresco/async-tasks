@@ -2,7 +2,6 @@ package com.andremoresco.asynctask.providers.implementation;
 
 import com.andremoresco.asynctask.model.Email;
 import com.andremoresco.asynctask.providers.EmailProvider;
-import com.andremoresco.asynctask.usecase.dobackup.SyncEmailCallback;
 import com.google.api.client.googleapis.batch.BatchRequest;
 import com.google.api.client.googleapis.batch.json.JsonBatchCallback;
 import com.google.api.client.googleapis.json.GoogleJsonError;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,13 +38,13 @@ public class GmailEmailProvider implements EmailProvider {
     }
 
     @Override
-    public void getEmails(SyncEmailCallback syncEmailCallback) throws Exception {
+    public List<Email> getEmails() throws Exception {
 
         Gmail service = this.gmailOauthAuthentication.execute();
 
         this.syncEmails(service, null);
 
-        syncEmailCallback.success(LIST_EMAILS);
+        return LIST_EMAILS;
     }
 
     private void syncEmails(Gmail service, String pageToken) throws IOException {
@@ -61,7 +61,7 @@ public class GmailEmailProvider implements EmailProvider {
     }
 
     private ListMessagesResponse listMessages(Gmail service, String pageToken) throws IOException {
-        return service.users().messages().list(AUTHENTICATED_USER).setPageToken(pageToken).execute();
+        return service.users().messages().list(AUTHENTICATED_USER).setPageToken(pageToken).setLabelIds(Collections.singletonList("DRAFT")).execute();
     }
 
     private void executeBatchRequestToGetEmails(Gmail service, BatchRequest batchRequest, List<Message> messages) throws IOException {

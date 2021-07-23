@@ -58,7 +58,7 @@ public class CreateBackupServiceTest {
         Mockito.when(this.doBackupService.execute(anyString()))
                 .thenReturn(CompletableFuture.completedFuture(anyString()));
 
-        Backup backupCreated = createBackupService.execute();
+        createBackupService.execute();
 
         Mockito.verify(this.backupRepository, times(1))
                 .updateStatus(anyString(), eq(BackupStatus.OK));

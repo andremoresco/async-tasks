@@ -1,11 +1,13 @@
 package com.andremoresco.asynctask.usecase.dobackup;
 
+import com.andremoresco.asynctask.model.Email;
 import com.andremoresco.asynctask.providers.EmailProvider;
 import com.andremoresco.asynctask.repository.EmailRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 @Service
@@ -24,8 +26,10 @@ public class DoBackupService {
     public CompletableFuture<String> execute(String backupId) {
         try {
 
-            this.emailProvider.getEmails(listEmail -> this.emailRepository.save(backupId, listEmail));
+            List<Email> emails = this.emailProvider.getEmails();
 
+            this.emailRepository.save(backupId, emails);
+            
             return CompletableFuture.completedFuture(backupId);
 
         } catch (Exception e) {
