@@ -3,7 +3,6 @@ target/
 .mvn/
 !**/src/main/**/target/
 !**/src/test/**/target/
-**/tokens
 **/application-local.yml
 
 ### STS ###
